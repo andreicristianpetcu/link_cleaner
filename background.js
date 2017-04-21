@@ -162,12 +162,6 @@ const urls_to_param_mappers = [
   },
   {
     urls: ["*://steamcommunity.com/linkfilter/*"]
-  },
-  {
-    urls: ["*://www.google.com/*"]
-  },
-  {
-    urls: ["*://www.google.ro/*"]
   }
 ];
 

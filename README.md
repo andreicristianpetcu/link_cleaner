@@ -32,12 +32,6 @@ This steam url:
 is changed to:
     https://getfedora.org/
 
-This google url:
-    https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwiJvfSTwrTTAhVHKFAKHZx8CvIQFggoMAA&url=https%3A%2F%2Fwww.debian.org%2F&usg=AFQjCNGp-ToPB9_K9fWrbOI3GDgpOf-XKQ
-
-is changed to:
-    https://www.debian.org/
-
 You can now visit and bookmark clean links instead of the long,
 tracking-enabled ones!
 
