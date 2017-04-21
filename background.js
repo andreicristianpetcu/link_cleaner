@@ -145,6 +145,7 @@ function build_redirect_to_query_param(query_param_name){
     const search_params = new URLSearchParams(new URL(requestDetails.url).search);
     const real_url_from_param = search_params.get(query_param_name);
     if (real_url_from_param){
+      console.log('Redirecting to ' + real_url_from_param);
       return {redirectUrl: real_url_from_param};
     }
   }
@@ -164,5 +165,21 @@ browser.webRequest.onBeforeRequest.addListener(
     {
         urls: ["*://out.reddit.com/*"],
         types: ["main_frame"]
+    }, ["blocking"]
+);
+
+browser.webRequest.onBeforeRequest.addListener(
+    build_redirect_to_query_param('url'),
+    {
+      urls: ["*://steamcommunity.com/linkfilter/*"],
+      types: ["main_frame"]
+    }, ["blocking"]
+);
+
+browser.webRequest.onBeforeRequest.addListener(
+    build_redirect_to_query_param('url'),
+    {
+      urls: ["https://www.google.com/url?*"],
+      types: ["main_frame"]
     }, ["blocking"]
 );
