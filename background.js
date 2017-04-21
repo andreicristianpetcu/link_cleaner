@@ -140,18 +140,29 @@ browser.webRequest.onBeforeRequest.addListener(
     }, ["blocking"]
 );
 
-function redirect_to_get_param(requestDetails){
-  const queryUrl = new URLSearchParams(new URL(requestDetails.url).search);
-  const realUrl = queryUrl.get('u');
-  if (realUrl){
-    return {redirectUrl: realUrl};
+function build_redirect_to_query_param(query_param_name){
+  const redirect_to_get_param = function(requestDetails){
+    const search_params = new URLSearchParams(new URL(requestDetails.url).search);
+    const real_url_from_param = search_params.get(query_param_name);
+    if (real_url_from_param){
+      return {redirectUrl: real_url_from_param};
+    }
   }
+  return redirect_to_get_param;
 }
 
 browser.webRequest.onBeforeRequest.addListener(
-    redirect_to_get_param,
+    build_redirect_to_query_param('u'),
     {
         urls: ["*://l.facebook.com/*"],
+        types: ["main_frame"]
+    }, ["blocking"]
+);
+
+browser.webRequest.onBeforeRequest.addListener(
+    build_redirect_to_query_param('url'),
+    {
+        urls: ["*://out.reddit.com/*"],
         types: ["main_frame"]
     }, ["blocking"]
 );
