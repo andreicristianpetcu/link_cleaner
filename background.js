@@ -167,7 +167,7 @@ const urls_to_param_mappers = [
     urls: ["*://www.google.com/*"]
   },
   {
-    urls: ["*://mail.google.ro/*"]
+    urls: ["*://www.google.ro/*"]
   }
 ];
 
