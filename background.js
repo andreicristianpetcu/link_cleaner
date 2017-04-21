@@ -145,7 +145,7 @@ function build_redirect_to_query_param(query_param_name){
     const search_params = new URLSearchParams(new URL(requestDetails.url).search);
     const real_url_from_param = search_params.get(query_param_name);
     if (real_url_from_param){
-      console.log('Redirecting to ' + real_url_from_param);
+      // console.log('Redirecting to ' + real_url_from_param);
       return {redirectUrl: real_url_from_param};
     }
   }
@@ -173,7 +173,7 @@ const urls_to_param_mappers = [
 
 urls_to_param_mappers.forEach(function(listenerConfig) {
   const param_name = listenerConfig.param_name ? listenerConfig.param_name : 'url';
-  console.log('Mapping ' + listenerConfig.urls + ' to param name ' + param_name);
+  // console.log('Mapping ' + listenerConfig.urls + ' to param name ' + param_name);
   browser.webRequest.onBeforeRequest.addListener(
     build_redirect_to_query_param(param_name), {
       urls: listenerConfig.urls,
