@@ -152,34 +152,32 @@ function build_redirect_to_query_param(query_param_name){
   return redirect_to_get_param;
 }
 
-browser.webRequest.onBeforeRequest.addListener(
-    build_redirect_to_query_param('u'),
-    {
-        urls: ["*://l.facebook.com/*"],
-        types: ["main_frame"]
-    }, ["blocking"]
-);
+const urls_to_param_mappers = [
+  {
+    urls: ["*://l.facebook.com/*"],
+    param_name: 'u'
+  },
+  {
+    urls: ["*://out.reddit.com/*"]
+  },
+  {
+    urls: ["*://steamcommunity.com/linkfilter/*"]
+  },
+  {
+    urls: ["*://www.google.com/*"]
+  },
+  {
+    urls: ["*://mail.google.ro/*"]
+  }
+];
 
-browser.webRequest.onBeforeRequest.addListener(
-    build_redirect_to_query_param('url'),
-    {
-        urls: ["*://out.reddit.com/*"],
-        types: ["main_frame"]
-    }, ["blocking"]
-);
-
-browser.webRequest.onBeforeRequest.addListener(
-    build_redirect_to_query_param('url'),
-    {
-      urls: ["*://steamcommunity.com/linkfilter/*"],
+urls_to_param_mappers.forEach(function(listenerConfig) {
+  const param_name = listenerConfig.param_name ? listenerConfig.param_name : 'url';
+  console.log('Mapping ' + listenerConfig.urls + ' to param name ' + param_name);
+  browser.webRequest.onBeforeRequest.addListener(
+    build_redirect_to_query_param(param_name), {
+      urls: listenerConfig.urls,
       types: ["main_frame"]
     }, ["blocking"]
-);
-
-browser.webRequest.onBeforeRequest.addListener(
-    build_redirect_to_query_param('url'),
-    {
-      urls: ["https://www.google.com/url?*"],
-      types: ["main_frame"]
-    }, ["blocking"]
-);
+  );
+});
